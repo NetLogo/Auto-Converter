@@ -1,0 +1,35 @@
+{
+  "name": "nl-auto-converter",
+  "version": "0.1.0",
+  "description": "A service for incrementally converting old NetLogo models to newer versions",
+  "author": "ERSUCC",
+  "license": "GPL-2.0",
+  "private": true,
+  "homepage": "https://github.com/NetLogo/Auto-Converter",
+  "bugs": {
+    "url": "https://github.com/NetLogo/Auto-Converter/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NetLogo/Auto-Converter.git"
+  },
+  "type": "module",
+  "main": "out/src/main.js",
+  "engines": {
+    "npm": "~11.12.1",
+    "node": "~24.15.0"
+  },
+  "scripts": {
+    "build": "npx tsc",
+    "serve": "node out/src/main.js"
+  },
+  "dependencies": {
+    "express": "~5.2.1",
+    "multer": "~2.1.1"
+  },
+  "devDependencies": {
+    "typescript": "~6.0.3",
+    "@types/express": "~5.0.6",
+    "@types/multer": "~2.1.0"
+  }
+}
