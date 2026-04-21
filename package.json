@@ -21,7 +21,7 @@
   },
   "scripts": {
     "build": "npx tsc && npm run scala-build",
-    "scala-build": "sbt pack && cp -r target/pack/lib out",
+    "scala-build": "mkdir -p out/lib && scalac -cp releases/7.0.3/* -d out/lib/AutoConverter.jar src/scala/AutoConverter.scala && cp -r releases/7.0.3/* out/lib",
     "serve": "node out/src/main.js"
   },
   "dependencies": {

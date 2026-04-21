@@ -3,7 +3,7 @@ import express, { type Request, type Response } from "express";
 import fs from "fs";
 import multer, { diskStorage } from "multer";
 
-const host = "localhost";
+const host = "127.0.0.1";
 const port = 4242;
 
 const app = express();
