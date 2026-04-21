@@ -20,7 +20,8 @@
     "node": "~24.15.0"
   },
   "scripts": {
-    "build": "npx tsc",
+    "build": "npx tsc && npm run scala-build",
+    "scala-build": "sbt pack && cp -r target/pack/lib out",
     "serve": "node out/src/main.js"
   },
   "dependencies": {

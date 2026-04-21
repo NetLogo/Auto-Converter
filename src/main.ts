@@ -1,27 +1,36 @@
+import { exec, type ExecException } from "child_process";
 import express, { type Request, type Response } from "express";
 import fs from "fs";
-import multer from "multer";
+import multer, { diskStorage } from "multer";
 
 const host = "localhost";
 const port = 4242;
 
-fs.rmSync("uploads", {
-  recursive: true,
-  force: true
-});
-
 const app = express();
 const mult = multer({
-  dest: "uploads"
+  storage: diskStorage({
+    filename: (_: Request, file: Express.Multer.File, callback: (error: Error | null, filename: string) => any) => {
+      callback(null, file.originalname);
+    }
+  })
 });
 
 app.post("/convert", mult.single("model"), (request: Request, response: Response) => {
   if (request.file) {
-    console.log(request.file.path);
+    const path: string = fs.realpathSync(request.file?.path) ?? "";
+    const command: string = `java -cp "out/lib/*" org.nlogo.convert.AutoConverter "${path}"`;
 
-    response.sendFile(fs.realpathSync(request.file.path));
+    exec(command, (error: ExecException | null, stdout: string, stderr: string) => {
+      if (error) {
+        console.error(stderr);
+
+        response.status(500).send();
+      } else {
+        response.sendFile(fs.realpathSync(stdout.trim()));
+      }
+    });
   } else {
-    response.send("No file uploaded.");
+    response.status(400).send();
   }
 });
 
