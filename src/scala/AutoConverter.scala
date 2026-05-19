@@ -31,7 +31,7 @@ object AutoConverter {
 
       val modelLoader = FileFormat.standardAnyLoader(false, workspace.compiler.utilities)
 
-      val controller = new ResaveController(modelPath.toUri)
+      val controller = new ResaveController(Paths.get(savePath).toUri)
 
       val dialect = {
         if (Version.is3D) {
