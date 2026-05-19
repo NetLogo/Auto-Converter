@@ -18,7 +18,12 @@ const mult = multer({
 app.post("/convert", mult.single("model"), (request: Request, response: Response) => {
   if (request.file) {
     const path: string = fs.realpathSync(request.file?.path) ?? "";
-    const command: string = `java -cp "out/lib/*" org.nlogo.convert.AutoConverter "${path}"`;
+
+    const options: string[] = [
+      "-Dnetlogo.extensions.dir=out/lib/extensions"
+    ];
+
+    const command: string = `java -cp "out/lib/*" ${options.join(" ")} org.nlogo.convert.AutoConverter "${path}"`;
 
     exec(command, (error: ExecException | null, stdout: string, stderr: string) => {
       if (error) {
