@@ -2,7 +2,7 @@
 
 set -e
 
-if [[ -n SCALA2 ]]; then
+if [[ ! -v SCALA2 ]]; then
   echo "Error: You must set the environment variable 'SCALA2'."
   exit 1
 fi

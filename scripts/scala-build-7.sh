@@ -2,7 +2,7 @@
 
 set -e
 
-if [[ -n SCALA3 ]]; then
+if [[ ! -v SCALA3 ]]; then
   echo "Error: You must set the environment variable 'SCALA3'."
   exit 1
 fi
