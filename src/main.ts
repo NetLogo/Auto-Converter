@@ -1,7 +1,8 @@
-import { exec, type ExecException } from "child_process";
 import express, { type Request, type Response } from "express";
-import fs from "fs";
+import { realpathSync } from "fs";
 import multer, { diskStorage } from "multer";
+
+import { execConversions } from "./convert.js";
 
 const host = "127.0.0.1";
 const port = 4242;
@@ -17,23 +18,7 @@ const mult = multer({
 
 app.post("/convert", mult.single("model"), (request: Request, response: Response) => {
   if (request.file) {
-    const path: string = fs.realpathSync(request.file?.path) ?? "";
-
-    const options: string[] = [
-      "-Dnetlogo.extensions.dir=out/lib/extensions"
-    ];
-
-    const command: string = `java -cp "out/lib/*" ${options.join(" ")} org.nlogo.convert.AutoConverter "${path}"`;
-
-    exec(command, (error: ExecException | null, stdout: string, stderr: string) => {
-      if (error) {
-        console.error(stderr);
-
-        response.status(500).send();
-      } else {
-        response.sendFile(fs.realpathSync(stdout.trim()));
-      }
-    });
+    execConversions(response, realpathSync(request.file.path));
   } else {
     response.status(400).send();
   }

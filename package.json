@@ -20,17 +20,19 @@
     "node": "~24.15.0"
   },
   "scripts": {
-    "build": "npx tsc && npm run scala-build",
-    "scala-build": "mkdir -p out/lib && scalac -cp releases/7.0.4/*.jar -d out/lib/AutoConverter.jar src/scala/AutoConverter.scala && cp -r releases/7.0.4/* out/lib",
+    "build": "npx tsc && npm run scala-build-5 && npm run scala-build-7",
+    "scala-build-5": "sh scripts/scala-build-5.sh",
+    "scala-build-7": "sh scripts/scala-build-7.sh",
     "serve": "node out/src/main.js"
   },
   "dependencies": {
     "express": "~5.2.1",
-    "multer": "~2.1.1"
+    "multer": "~2.1.1",
+    "fast-xml-parser": "~5.8.0"
   },
   "devDependencies": {
-    "typescript": "~6.0.3",
     "@types/express": "~5.0.6",
-    "@types/multer": "~2.1.0"
+    "@types/multer": "~2.1.0",
+    "typescript": "~6.0.3"
   }
 }
