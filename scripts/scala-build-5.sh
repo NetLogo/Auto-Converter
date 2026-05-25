@@ -2,10 +2,17 @@
 
 set -e
 
+if [[ ! -v JAVA6 ]]; then
+  echo "Error: You must set the environment variable 'JAVA6'."
+  exit 1
+fi
+
 if [[ ! -v SCALA2 ]]; then
   echo "Error: You must set the environment variable 'SCALA2'."
   exit 1
 fi
+
+export JAVACMD=$JAVA6
 
 rm -rf out/lib/5.0.0
 mkdir -p out/lib/5.0.0
