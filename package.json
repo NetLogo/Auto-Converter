@@ -21,8 +21,8 @@
   },
   "scripts": {
     "build": "npx tsc && npm run scala-build-5 && npm run scala-build-7",
-    "scala-build-5": "sh scripts/scala-build-5.sh",
-    "scala-build-7": "sh scripts/scala-build-7.sh",
+    "scala-build-5": "bash scripts/scala-build-5.sh",
+    "scala-build-7": "bash scripts/scala-build-7.sh",
     "serve": "node out/src/main.js"
   },
   "dependencies": {
