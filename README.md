@@ -6,7 +6,7 @@ A service for incrementally converting old NetLogo models to newer versions
 
 ### NPM
 
-Install the version of NPM specified in `package.json` and add it to your PATH.
+Install the version of NPM specified in `service/package.json` and add it to your PATH.
 
 ### Java
 
@@ -18,10 +18,21 @@ Install Scala 2.9.2 and Scala 3.7.0 to your preferred locations. Create an envir
 
 ## Building
 
-Once the above setup is complete, run the following commands to build and run the Auto-Converter:
+Once the above setup is complete, run the following commands to build and run the Auto-Converter service:
 
 ```bash
+cd service
+
 npm install
 npm run build
 npm run serve
+```
+
+To build and run the front end, run the following commands:
+
+```bash
+cd frontend
+
+npm install
+npm run dev
 ```
