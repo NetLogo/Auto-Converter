@@ -1,3 +1,4 @@
+import cors from "cors";
 import express, { type Request, type Response } from "express";
 import { realpathSync } from "fs";
 import multer, { diskStorage } from "multer";
@@ -15,6 +16,8 @@ const mult = multer({
     }
   })
 });
+
+app.use(cors());
 
 app.post("/convert", mult.single("model"), (request: Request, response: Response) => {
   if (request.file) {
