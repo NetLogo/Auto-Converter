@@ -11,10 +11,10 @@ const xmlParser = new XMLParser({
 });
 
 function parseVersionL(path: string): Version | undefined {
-  const match = readFileSync(path).toString().match(/@#\$#@#\$#@\nNetLogo (.+)( 3D)?/);
+  const match = readFileSync(path).toString().match(/@#\$#@#\$#@\nNetLogo (?:3D )?(.+?)\n/);
 
   if (match && match[1]) {
-    return { number: match[1], threed: match[0].endsWith("3D") };
+    return { number: match[1], threed: match[0].includes("3D") };
   }
 
   return undefined;
@@ -24,10 +24,10 @@ function parseVersionX(path: string): Version | undefined {
   const version: string | undefined = xmlParser.parse(readFileSync(path))["model"]["@_version"];
 
   if (version) {
-    const match = version.match(/NetLogo (.+)( 3D)?/);
+    const match = version.match(/NetLogo (?:3D )?(.+)/);
 
     if (match && match[1]) {
-      return { number: match[1], threed: match[0].endsWith("3D") };
+      return { number: match[1], threed: match[0].includes("3D") };
     }
 
     return undefined;
