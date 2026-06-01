@@ -18,7 +18,7 @@ object AutoConverter {
       System.exit(1)
 
     val modelPath = Paths.get(args(0))
-    val savePath = modelPath.toString.replaceAll("\\.nlogo$", ".nlogox")
+    val savePath = modelPath.toString.replaceAll("\\.nlogo(3d)?$", ".nlogox$1")
 
     val literalParser = Femto.scalaSingleton[LiteralParser]("org.nlogo.parse.CompilerUtilities")
 
