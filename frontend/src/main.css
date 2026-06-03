@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter');
 
+:root {
+  --nl-blue: rgb(13, 110, 253);
+  --succeeded: rgb(50, 200, 100);
+  --failed: rgb(255, 100, 100);
+}
+
 * {
   font-family: "Inter", sans-serif;
 }
@@ -11,23 +17,74 @@ body {
 
 #container {
   height: 100vh;
+  align-items: center;
+}
+
+#progress-list {
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.flex-column {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
 }
 
-#select {
-  border: 1px solid rgb(13, 110, 253);
+.round-container {
+  border: 1px solid var(--nl-blue);
   border-radius: 4px;
   background: transparent;
-  color: rgb(13, 110, 253);
+  color: var(--nl-blue);
+  font-size: 16px;
+}
+
+.round-container.button {
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.round-container.button:hover {
+  background: var(--nl-blue);
+  color: white;
+}
+
+.round-container.succeeded {
+  border-color: var(--succeeded);
+  color: var(--succeeded);
+}
+
+.round-container.failed {
+  border-color: var(--failed);
+  color: var(--failed);
+}
+
+.round-container.button.succeeded:hover {
+  background: var(--succeeded);
+  color: white;
+}
+
+.round-container p {
+  margin: 0;
+  padding: 0;
+}
+
+.progress-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: stretch;
+  gap: 16px;
+}
+
+.progress-item-name {
+  flex-grow: 1;
+}
+
+.loose-space {
   padding: 8px 12px;
 }
 
-#select:hover {
-  cursor: pointer;
-  background: rgb(13, 110, 253);
-  color: white;
-  transition: 0.2s;
+.tight-space {
+  padding: 0px 6px;
 }
