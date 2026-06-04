@@ -5,4 +5,6 @@ COPY scripts /frontend/scripts
 COPY src /frontend/src
 COPY public /frontend/public
 
+EXPOSE 3000
+
 ENTRYPOINT [ "/frontend/scripts/docker-run.sh" ]
