@@ -5,7 +5,6 @@ import multer, { diskStorage } from "multer";
 
 import { execConversions } from "./convert.js";
 
-const host = "127.0.0.1";
 const port = 4242;
 
 const app = express();
@@ -27,6 +26,6 @@ app.post("/convert", mult.single("model"), (request: Request, response: Response
   }
 });
 
-app.listen(port, host, () => {
-  console.log(`Service running at ${host}:${port}`);
+app.listen(port, () => {
+  console.log(`Service running on port ${port}`);
 });
