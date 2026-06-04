@@ -11,7 +11,7 @@ const xmlParser = new XMLParser({
 });
 
 function parseVersionL(path: string): Version | undefined {
-  const match = readFileSync(path).toString().match(/@#\$#@#\$#@\nNetLogo (?:3D )?(.+?)\n/);
+  const match = readFileSync(path).toString().match(/@#\$#@#\$#@\r?\nNetLogo (?:3D )?(.+?)\r?\n/);
 
   if (match && match[1]) {
     return { number: match[1], threed: match[0].includes("3D") };
