@@ -41,7 +41,7 @@
     "noEmit": false,
     "noEmitHelpers": false,
     "noEmitOnError": true,
-    "outDir": "out",
+    "outDir": "dist",
     "preserveConstEnums": true,
     "removeComments": true,
     "sourceMap": true,
