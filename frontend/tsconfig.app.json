@@ -25,8 +25,11 @@
     "allowArbitraryExtensions": false,
     "allowImportingTsExtensions": false,
     "allowUmdGlobalAccess": false,
-    "module": "node16",
-    "moduleResolution": "node16",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "types": [
+      "node"
+    ],
     "rootDirs": [
       "src"
     ],

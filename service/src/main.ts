@@ -2,10 +2,11 @@ import cors from "cors";
 import express, { type Request, type Response } from "express";
 import { realpathSync } from "fs";
 import multer, { diskStorage } from "multer";
+import { env } from "process";
 
 import { execConversions } from "./convert.js";
 
-const port = 4242;
+const port: number = parseInt(`${env["AC_SERVICE_PORT"]}`);
 
 const app = express();
 const mult = multer({
@@ -16,7 +17,9 @@ const mult = multer({
   })
 });
 
-app.use(cors());
+app.use(cors({
+  origin: env["AC_ALLOWED_ORIGINS"]?.split(",") ?? []
+}));
 
 app.post("/convert", mult.single("model"), (request: Request, response: Response) => {
   if (request.file) {

@@ -5,6 +5,8 @@
 
   const input = useTemplateRef("input");
 
+  const service: string = `${import.meta.env["VITE_AC_SERVICE_HOST"]}/convert`;
+
   function convert(): void {
     store.beginProgress();
 
@@ -15,7 +17,7 @@
 
       data.append("model", file);
 
-      fetch("http://localhost:4242/convert", {
+      fetch(service, {
         method: "POST",
         body: data,
         signal: store.abortSignal()
