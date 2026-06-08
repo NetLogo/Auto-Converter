@@ -8,6 +8,7 @@ import org.nlogo.api.{ DummyLogoThunkFactory, FileIO, ModelReader, ModelSection,
                        VersionHistory }
 import org.nlogo.app.InfoConverter
 import org.nlogo.compiler.Compiler
+import org.nlogo.editor.AbstractEditorArea
 import org.nlogo.lab.{ Protocol, ProtocolLoader, ProtocolSaver }
 import org.nlogo.nvm.DefaultCompilerServices
 import org.nlogo.plot.PlotManager
@@ -59,6 +60,10 @@ object AutoConverter {
 
     val plotManager = new PlotManager(new DummyLogoThunkFactory)
 
+    val editorArea = new AbstractEditorArea {
+      override def enableBracketMatcher(enable: Boolean): Unit = {}
+    }
+
     writeSection {
       buffer ++= autoConvert(getSectionText(ModelSection.Code), false, false)
     }
@@ -71,58 +76,54 @@ object AutoConverter {
 
         val tpe: String = lines.get(0).toUpperCase
 
-        val widget: Widget = WidgetRegistry(tpe) match {
-          case null =>
-            tpe match {
-              case "SLIDER" =>
-                new SliderWidget(null)
+        Option(WidgetRegistry(tpe)).orElse {
+          tpe match {
+            case "SLIDER" =>
+              Some(new SliderWidget(null))
 
-              case "CHOOSER" | "CHOICE" =>
-                new ChooserWidget(null)
+            case "CHOOSER" | "CHOICE" =>
+              Some(new ChooserWidget(compilerServices))
 
-              case "BUTTON" =>
-                new ButtonWidget(null)
+            case "BUTTON" =>
+              Some(new ButtonWidget(null))
 
-              case "PLOT" =>
-                PlotWidget(plotManager)
+            case "PLOT" =>
+              Some(PlotWidget(plotManager))
 
-              case "MONITOR" =>
-                new MonitorWidget(null)
+            case "MONITOR" =>
+              Some(new MonitorWidget(null))
 
-              case "INPUT" | "INPUTBOX" =>
-                new InputBoxWidget(null, null, compilerServices, null)
+            case "INPUT" | "INPUTBOX" =>
+              Some(new InputBoxWidget(editorArea, editorArea, compilerServices, editorArea))
 
-              case "OUTPUT" =>
-                new OutputWidget
+            case "OUTPUT" =>
+              Some(new OutputWidget)
 
-              case "GRAPHICS-WINDOW" =>
-                new IdentityWidget
+            case "GRAPHICS-WINDOW" =>
+              Some(new IdentityWidget)
 
-              case "CC-WINDOW" =>
-                new IdentityWidget
+            case "CC-WINDOW" =>
+              None
 
-              case _ =>
-                throw new IllegalStateException("Unknown widget type \"" + tpe + "\".")
-            }
+            case _ =>
+              throw new IllegalStateException("Unknown widget type \"" + tpe + "\".")
+          }
+        }.foreach { widget =>
+          val loadHelper = new Widget.LoadHelper {
+            override def convert(source: String, reporter: Boolean): String =
+              autoConvert(source, true, reporter)
 
-          case widget =>
-            widget
+            override def version: String =
+              modelVersion
+          }
+
+          EventQueue.invokeAndWait(() => {
+            widget.load(lines.toArray(Array[String]()), loadHelper)
+            widget.setLocation(lines.get(1).toInt, lines.get(2).toInt)
+          }: Unit)
+
+          buffer ++= widget.save + '\n'
         }
-
-        val loadHelper = new Widget.LoadHelper {
-          override def convert(source: String, reporter: Boolean): String =
-            autoConvert(source, true, reporter)
-
-          override def version: String =
-            modelVersion
-        }
-
-        EventQueue.invokeAndWait(() => {
-          widget.load(lines.toArray(Array[String]()), loadHelper)
-          widget.setLocation(lines.get(1).toInt, lines.get(2).toInt)
-        }: Unit)
-
-        buffer ++= widget.save + '\n'
       }
     }
 
@@ -193,58 +194,54 @@ object AutoConverter {
 
         val tpe: String = lines.get(0).toUpperCase
 
-        val widget: Widget = WidgetRegistry("DUMMY " + tpe) match {
-          case null =>
-            tpe match {
-              case "SLIDER" =>
-                new DummySliderWidget()
+        Option(WidgetRegistry("DUMMY " + tpe)).orElse {
+          tpe match {
+            case "SLIDER" =>
+              Some(new DummySliderWidget())
 
-              case "CHOOSER" | "CHOICE" =>
-                new DummyChooserWidget(compilerServices)
+            case "CHOOSER" | "CHOICE" =>
+              Some(new DummyChooserWidget(compilerServices))
 
-              case "BUTTON" =>
-                new DummyButtonWidget()
+            case "BUTTON" =>
+              Some(new DummyButtonWidget())
 
-              case "PLOT" =>
-                DummyPlotWidget(plotManager.getPlotNames.headOption.getOrElse("plot 1"), plotManager)
+            case "PLOT" =>
+              Some(DummyPlotWidget(plotManager.getPlotNames.headOption.getOrElse("plot 1"), plotManager))
 
-              case "MONITOR" =>
-                new DummyMonitorWidget()
+            case "MONITOR" =>
+              Some(new DummyMonitorWidget())
 
-              case "INPUT" | "INPUTBOX" =>
-                new DummyInputBoxWidget(null, null, null, compilerServices)
+            case "INPUT" | "INPUTBOX" =>
+              Some(new DummyInputBoxWidget(editorArea, editorArea, editorArea, compilerServices))
 
-              case "OUTPUT" =>
-                new OutputWidget
+            case "OUTPUT" =>
+              Some(new OutputWidget)
 
-              case "GRAPHICS-WINDOW" | "VIEW" =>
-                new DummyViewWidget(new World)
+            case "GRAPHICS-WINDOW" | "VIEW" =>
+              Some(new DummyViewWidget(new World))
 
-              case "CC-WINDOW" =>
-                new IdentityWidget
+            case "CC-WINDOW" =>
+              None
 
-              case _ =>
-                throw new IllegalStateException("Unknown widget type \"" + tpe + "\".")
-            }
+            case _ =>
+              throw new IllegalStateException("Unknown widget type \"" + tpe + "\".")
+          }
+        }.foreach { widget =>
+          val loadHelper = new Widget.LoadHelper {
+            override def convert(source: String, reporter: Boolean): String =
+              autoConvert(source, true, reporter)
 
-          case widget =>
-            widget
+            override def version: String =
+              modelVersion
+          }
+
+          EventQueue.invokeAndWait(() => {
+            widget.load(lines.toArray(Array[String]()), loadHelper)
+            widget.setLocation(lines.get(1).toInt, lines.get(2).toInt)
+          }: Unit)
+
+          buffer ++= widget.save + '\n'
         }
-
-        val loadHelper = new Widget.LoadHelper {
-          override def convert(source: String, reporter: Boolean): String =
-            autoConvert(source, true, reporter)
-
-          override def version: String =
-            modelVersion
-        }
-
-        EventQueue.invokeAndWait(() => {
-          widget.load(lines.toArray(Array[String]()), loadHelper)
-          widget.setLocation(lines.get(1).toInt, lines.get(2).toInt)
-        }: Unit)
-
-        buffer ++= widget.save + '\n'
       }
     }
 
