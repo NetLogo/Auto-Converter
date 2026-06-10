@@ -5,7 +5,7 @@ import { useSeo } from '@/composables/useSeo.js';
 useSeo({
   title: 'NetLogo Now Has a New Model Converter',
   description:
-    'NetLogo 7 introduces the XML-based .nlogox model format. The official, free NetLogo Auto-Converter upgrades legacy .nlogo and .nlogo3d models from NetLogo 4, 5, and 6. In your browser, with every code change highlighted.',
+    'NetLogo 7 introduces the XML-based .nlogox model format. The official, free NetLogo Auto-Converter upgrades legacy .nlogo and .nlogo3d models from NetLogo 4, 5, and 6.',
   path: '/news/announcing-netlogo-auto-converter',
 });
 
