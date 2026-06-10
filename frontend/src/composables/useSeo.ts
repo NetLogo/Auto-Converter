@@ -1,6 +1,6 @@
 import { useHead, useSeoMeta } from '@unhead/vue';
 
-export const SITE_URL = 'https://convert.netlogo.com';
+export const SITE_URL = 'https://convert.netlogo.org';
 export const SITE_NAME = 'NetLogo Auto-Converter';
 const DEFAULT_IMAGE = `${SITE_URL}/opengraph.png`;
 
