@@ -1,0 +1,27 @@
+# NetLogo Auto-Converter
+
+> The official, free NetLogo tool for upgrading legacy `.nlogo` and `.nlogo3d` models (authored in NetLogo 4, 5, or 6) to the new NetLogo 7 XML-based `.nlogox` and `.nlogox3d` format. It runs entirely in the browser: upload one or more models, convert them, and download the results. Original files are never modified.
+
+How it works:
+
+- Models are upgraded one major version at a time by the NetLogo Auto-Converter service until they are compatible with the latest NetLogo release (NetLogo 7).
+- Some model code may be rewritten where necessary to keep it working in the new version of NetLogo.
+- The converter cannot upgrade models older than NetLogo 4; those must be opened and re-saved in NetLogo 4 first. Models from NetLogo 4 can be upgraded, but the process is more error-prone, so converted output should be reviewed carefully.
+
+## Docs
+
+- [Converter home](https://convert.netlogo.org/): Upload, convert, and download NetLogo models in the browser.
+- [About the Auto-Converter](https://convert.netlogo.org/about): What the converter changes, supported formats, how it works, and its limitations.
+- [Announcement: NetLogo Now Has a New Model Converter](https://convert.netlogo.org/news/announcing-netlogo-auto-converter): Background on the NetLogo 7 `.nlogox` format and the launch of the Auto-Converter.
+
+## NetLogo resources
+
+- [What's new in NetLogo 7](https://docs.netlogo.org/netlogo7intro): Overview of changes in NetLogo 7, including the new XML model format.
+- [NetLogo documentation](https://docs.netlogo.org/): Official documentation for the NetLogo language and tooling.
+- [Download NetLogo](https://www.netlogo.org/download): Get the latest desktop release of NetLogo.
+- [NetLogo Web](https://www.netlogoweb.org): Run NetLogo models in the browser.
+
+## Optional
+
+- [Source code (GitHub)](https://github.com/NetLogo/Auto-Converter): The Auto-Converter frontend and conversion service.
+- [Report an issue](https://github.com/NetLogo/Auto-Converter/issues): File bugs or request help with a model that fails to convert.
