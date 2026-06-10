@@ -96,8 +96,8 @@ const guarantees = [
   },
   {
     icon: 'mdi:pencil-outline',
-    title: 'Every change highlighted',
-    body: 'Rewritten lines stay marked inside the converted model, so nothing changes silently.',
+    title: 'Automatic code rewriting',
+    body: 'Where the NetLogo language has evolved, your code evolves with it. The converter rewrites old syntax to keep your model working in NetLogo 7 and NetLogo Web.',
   },
   {
     icon: 'mdi:shield-check-outline',
@@ -288,9 +288,7 @@ const ctaTurtles = [
           <p class="flex items-start gap-2 px-1 text-xs leading-relaxed text-muted sm:text-sm mt-5">
             <UIcon name="mdi:pencil-outline" class="mt-0.5 size-4 shrink-0 text-amber-600" />
             <span>
-              Where the language changed, like NetLogo 5's
-              <code class="family-mono">?</code> tasks, code is rewritten automatically, and the edited lines stay
-              <span class="font-medium text-highlighted">highlighted in your converted model</span>.
+              Where the language changed, like NetLogo 5's tasks, code is rewritten automatically.
             </span>
           </p>
         </div>
