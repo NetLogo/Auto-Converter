@@ -11,7 +11,7 @@ import { headerNavItems } from '@/config/navigation.js';
       </RouterLink>
     </template>
 
-    <UNavigationMenu variant="link" :items="headerNavItems" />
+    <UNavigationMenu variant="link" :items="headerNavItems" :ui="{ 'list': 'gap-2' }"  />
 
     <template #body>
       <UNavigationMenu variant="link" :items="headerNavItems" orientation="vertical" class="-mx-2.5" />
