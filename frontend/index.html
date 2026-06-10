@@ -1,9 +1,10 @@
 <!doctype html>
-<html lang="">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0d6efd" />
     <title>NetLogo Auto-Converter</title>
 
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
@@ -21,13 +22,23 @@
       content="NetLogo, Agent-Based Modeling, ABM, Model Conversion, NetLogo 7, NetLogo 6, NetLogo 5, NetLogo 4, .nlogo, .nlogox, .nlogo3d, .nlogox3d, Model Upgrading, Simulation, Modeling Tools"
     />
     <meta name="author" content="NetLogo" />
-    <meta property="og:title" content="NetLogo Auto-Converter" />
-    <meta
-      property="og:description"
-      content="Official NetLogo tool for upgrading NetLogo 4, NetLogo 5, and NetLogo 6 .nlogo models to NetLogo 7 XML .nlogox models."
-    />
+
     <meta property="og:image" content="/opengraph.png" />
-    <meta property="og:url" content="https://convert.netlogo.com" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "NetLogo Auto-Converter",
+        "url": "https://convert.netlogo.com",
+        "description": "Official NetLogo tool for upgrading NetLogo 4, 5, and 6 .nlogo models to the new NetLogo 7 XML .nlogox format.",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "publisher": { "@type": "Organization", "name": "NetLogo", "url": "https://www.netlogo.org" }
+      }
+    </script>
   </head>
   <body>
     <div id="app" class="isolate"></div>

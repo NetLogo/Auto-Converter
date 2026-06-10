@@ -1,5 +1,13 @@
 <script setup lang="ts">
 import NetLogoFileIcon from '@/components/ui/NetLogoFileIcon.vue';
+import { useSeo } from '@/composables/useSeo.js';
+
+useSeo({
+  title: 'About',
+  description:
+    'How the NetLogo Auto-Converter upgrades legacy .nlogo models to the NetLogo 7 .nlogox format, what it changes, and its limitations.',
+  path: '/about',
+});
 
 const steps = [
   {
@@ -25,14 +33,17 @@ const steps = [
     <header class="flex flex-col gap-3">
       <h1 class="text-2xl font-bold text-highlighted">About the Auto Converter</h1>
       <p class="text-muted leading-relaxed">
-        The NetLogo Auto-Converter upgrades legacy models to the modern XML-based format used by <a class="text-primary hover:underline" href="https://www.netlogo.org/download" target="_blank" rel="noopener">NetLogo 7</a> and
+        The NetLogo Auto-Converter upgrades legacy models to the modern XML-based format used by
+        <a class="text-primary hover:underline" href="https://www.netlogo.org/download" target="_blank" rel="noopener"
+          >NetLogo 7</a
+        >
+        and
         <a class="text-primary hover:underline" href="https://www.netlogoweb.org" target="_blank" rel="noopener">
-          NetLogo Web</a>.
-          The Auto Converter will also upgrade models authored in older versions of NetLogo to be compatible with the latest NetLogo release.
+          NetLogo Web</a
+        >. The Auto Converter will also upgrade models authored in older versions of NetLogo to be compatible with the
+        latest NetLogo release.
       </p>
-      <p class="text-muted leading-relaxed">
-        Everything runs from your browser. Just upload, convert, and download.
-      </p>
+      <p class="text-muted leading-relaxed">Everything runs from your browser. Just upload, convert, and download.</p>
     </header>
 
     <section class="flex flex-col gap-4">
@@ -43,7 +54,12 @@ const steps = [
           <span class="text-xs">Legacy format</span>
           <code class="family-mono text-xs text-muted">.nlogo, .nlogo3d</code>
         </div>
-        <UIcon name="mdi:arrow-right-bold-circle" class="size-8 text-neutral shrink-0" />
+        <div
+          class="conversion-chevrons family-mono pb-8 text-2xl font-bold text-primary select-none sm:pb-12 sm:text-3xl mt-5"
+          aria-hidden="true"
+        >
+          <span>&gt;</span><span>&gt;</span><span>&gt;</span>
+        </div>
         <div class="flex flex-col items-center gap-2">
           <NetLogoFileIcon variant="new" />
           <span class="text-xs">New XML format</span>
@@ -65,15 +81,15 @@ const steps = [
       </ol>
     </section>
 
-
     <section class="flex flex-col gap-4">
       <h2 class="text-lg font-semibold text-highlighted">Code changes</h2>
       <div class="flex gap-4 rounded-lg border border-warning/40 bg-warning/10 p-4">
         <UIcon name="mdi:pencil-outline" class="size-6 text-warning shrink-0 mt-0.5" />
         <p class="text-sm text-muted leading-relaxed">
           Some of your model's code may be rewritten where necessary to keep it working in the new version of NetLogo.
-          Any lines the converter changes are <span class="font-medium text-highlighted">highlighted in the downloaded
-          model</span> so you can review exactly what was modified.
+          Any lines the converter changes are
+          <span class="font-medium text-highlighted">highlighted in the downloaded model</span> so you can review
+          exactly what was modified.
         </p>
       </div>
     </section>
@@ -84,9 +100,9 @@ const steps = [
         <UIcon name="mdi:alert-outline" class="size-6 text-muted shrink-0 mt-0.5" />
         <p class="text-sm text-muted leading-relaxed">
           The converter cannot upgrade models older than
-          <span class="font-medium text-highlighted">NetLogo 4</span>: these need to be opened and re-saved in a
-          newer version of NetLogo before they can be converted here. Models from NetLogo 4 can be upgraded, but the
-          process is <span class="font-medium text-highlighted">more error-prone</span>, so review the converted output
+          <span class="font-medium text-highlighted">NetLogo 4</span>: these need to be opened and re-saved in a newer
+          version of NetLogo before they can be converted here. Models from NetLogo 4 can be upgraded, but the process
+          is <span class="font-medium text-highlighted">more error-prone</span>, so review the converted output
           carefully.
         </p>
       </div>
@@ -130,6 +146,15 @@ const steps = [
       </div>
     </section>
 
-    <UButton to="/" icon="mdi:arrow-left" color="neutral" variant="link" label="Back to the converter" class="self-start" />
+    <div class="flex flex-wrap items-center justify-between gap-2 border-t border-muted pt-6">
+      <UButton to="/" icon="mdi:arrow-left" color="neutral" variant="link" label="Back to the converter" />
+      <UButton
+        to="/news/announcing-netlogo-auto-converter"
+        trailing-icon="mdi:arrow-right"
+        color="primary"
+        variant="link"
+        label="What's new in NetLogo 7"
+      />
+    </div>
   </div>
 </template>

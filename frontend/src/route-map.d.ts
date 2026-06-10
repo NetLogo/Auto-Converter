@@ -45,6 +45,13 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    '/news/announcing-netlogo-auto-converter': RouteRecordInfo<
+      '/news/announcing-netlogo-auto-converter',
+      '/news/announcing-netlogo-auto-converter',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
   }
 
   /**
@@ -69,6 +76,14 @@ declare module 'vue-router/auto-routes' {
     'src/pages/about.vue': {
       routes:
         | '/about'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'src/pages/news/announcing-netlogo-auto-converter.vue': {
+      routes:
+        | '/news/announcing-netlogo-auto-converter'
       views:
         | never
       pathParamNames:

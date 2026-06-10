@@ -3,8 +3,16 @@ import Headline from '@/components/layout/Headline.vue';
 import FileUploader from '@/components/conversion/FileUploader.vue';
 import ConversionPanel from '@/components/conversion/ConversionPanel.vue';
 import { useConversions } from '@/composables/useConversions.js';
+import { useSeo } from '@/composables/useSeo.js';
 
 const { inProgress } = useConversions();
+
+useSeo({
+  title: 'NetLogo Auto-Converter — Upgrade Models to NetLogo 7',
+  description:
+    'Official NetLogo tool for upgrading NetLogo 4, 5, and 6 .nlogo models to the new NetLogo 7 XML .nlogox format. Free and runs entirely in your browser.',
+  path: '/',
+});
 </script>
 
 <template>
