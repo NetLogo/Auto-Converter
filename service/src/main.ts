@@ -21,6 +21,10 @@ app.use(cors({
   origin: env["AC_ALLOWED_ORIGINS"]?.split(",") ?? []
 }));
 
+app.get("/health", (_: Request, response: Response) => {
+  response.status(200).send();
+});
+
 app.post("/convert", mult.single("model"), (request: Request, response: Response) => {
   if (request.file) {
     execConversions(response, realpathSync(request.file.path));
