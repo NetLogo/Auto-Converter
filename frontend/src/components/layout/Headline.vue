@@ -8,8 +8,8 @@
         /assets/headline/headline-3x.webp 3x,
       "
       src="/assets/headline/headline.webp"
-      alt="NetLogo Auto Converter"
-      title="NetLogo Auto Converter"
+      alt="NetLogo Auto-Converter"
+      title="NetLogo Auto-Converter"
       class="headline"
       loading="lazy"
     />
