@@ -1,16 +1,32 @@
 <script setup lang="ts">
-  import { store } from "@/store/store.js";
+import { KeepAlive } from 'vue';
 
-  import ProgressList from "./ProgressList.vue";
-  import ResetButton from "./Reset.vue";
-  import SelectButton from "./Select.vue";
+import AppHeader from '@/components/layout/AppHeader.vue';
+import Headline from '@/components/layout/Headline.vue';
+import FileUploader from '@/components/conversion/FileUploader.vue';
+import ConversionPanel from '@/components/conversion/ConversionPanel.vue';
+import { useConversions } from '@/composables/useConversions.js';
+
+const { inProgress } = useConversions();
 </script>
 
 <template>
-  <div id="container" class="flex-column">
-    <h1>NetLogo Auto-Converter</h1>
-    <ProgressList v-if="store.inProgress()" />
-    <ResetButton v-if="store.inProgress()" />
-    <SelectButton v-else />
-  </div>
+  <UApp>
+    <AppHeader />
+
+    <UMain id="container" class="flex flex-col items-center justify-center gap-6">
+      <Headline />
+
+      <KeepAlive>
+        <ConversionPanel v-if="inProgress" />
+        <FileUploader v-else />
+      </KeepAlive>
+    </UMain>
+  </UApp>
 </template>
+
+<style scoped>
+#container {
+  background: linear-gradient(to bottom, #edf8ff, #ffffff 50%);
+}
+</style>
