@@ -182,9 +182,9 @@ const ctaTurtles = [
 
         <p class="rise max-w-xl text-base leading-relaxed text-muted sm:text-lg" style="animation-delay: 0.18s">
           NetLogo 7 introduces a modern, XML-based model format. The official Auto-Converter upgrades your legacy
-          <code class="family-mono text-sm text-highlighted bg-black/10">.nlogo</code> and
-          <code class="family-mono text-sm text-highlighted bg-black/10">.nlogo3d</code> models to
-          <code class="family-mono text-sm text-highlighted bg-black/10">.nlogox</code>: free, in your browser, no install.
+          <code class="family-mono text-sm text-highlighted">.nlogo</code> and
+          <code class="family-mono text-sm text-highlighted">.nlogo3d</code> models to
+          <code class="family-mono text-sm text-highlighted">.nlogox</code>: free, in your browser, no install.
         </p>
 
         <div class="rise flex flex-wrap items-center justify-center gap-3" style="animation-delay: 0.24s">

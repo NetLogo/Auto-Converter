@@ -18,7 +18,7 @@ const steps = [
   {
     icon: 'mdi:cog-sync-outline',
     title: 'Convert',
-    body: 'Each model is sent to the NetLogo conversion service and upgraded to the modern format.',
+    body: 'Each model is upgraded one major version at a time via the NetLogo Auto Converter service.',
   },
   {
     icon: 'mdi:download-outline',
@@ -146,7 +146,7 @@ const steps = [
       <UButton to="/" icon="mdi:arrow-left" color="neutral" variant="link" label="Back to the converter" />
       <UButton
         to="https://docs.netlogo.org/netlogo7intro"
-        trailing-icon="mdi:arrow-right"
+        trailing-icon="mdi:arrow-top-right"
         color="primary"
         variant="link"
         external
