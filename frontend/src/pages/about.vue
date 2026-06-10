@@ -78,6 +78,20 @@ const steps = [
       </div>
     </section>
 
+    <section class="flex flex-col gap-4">
+      <h2 class="text-lg font-semibold text-highlighted">Limitations</h2>
+      <div class="flex gap-4 rounded-lg border border-muted p-4">
+        <UIcon name="mdi:alert-outline" class="size-6 text-muted shrink-0 mt-0.5" />
+        <p class="text-sm text-muted leading-relaxed">
+          The converter cannot upgrade models older than
+          <span class="font-medium text-highlighted">NetLogo 4</span>: these need to be opened and re-saved in a
+          newer version of NetLogo before they can be converted here. Models from NetLogo 4 can be upgraded, but the
+          process is <span class="font-medium text-highlighted">more error-prone</span>, so review the converted output
+          carefully.
+        </p>
+      </div>
+    </section>
+
     <section class="flex flex-col gap-3">
       <h2 class="text-lg font-semibold text-highlighted">Need help?</h2>
       <p class="text-muted leading-relaxed">
