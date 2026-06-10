@@ -23,7 +23,18 @@ function triggerDownload(blob: Blob, filename: string): void {
  * selected files to the converter service and downloading the results.
  */
 export function useConversions() {
+  const toast = useToast();
+
   const conversions = computed(() => store.getConversions());
+
+  function notifyFailure(filename: string, message: string): void {
+    toast.add({
+      title: `Failed to convert ${filename}`,
+      description: message,
+      color: 'error',
+      icon: 'mdi:alert-circle',
+    });
+  }
 
   const succeeded = computed(() => conversions.value.filter((item): item is Succeeded => item.status === 'succeeded'));
 
@@ -51,11 +62,21 @@ export function useConversions() {
           if (response.status === 200) {
             store.succeed(id, convertedName(file), await response.blob());
           } else {
-            store.fail(id, 'Received invalid response from server.');
+            const message = 'Received invalid response from server.';
+            store.fail(id, message);
+            notifyFailure(file.name, message);
           }
         },
         (error) => {
-          store.fail(id, `${error}`);
+          // `store.endProgress()` aborts in-flight requests; that's a user
+          // action, not a conversion failure, so don't surface it.
+          if (error?.name === 'AbortError') {
+            return;
+          }
+
+          const message = `${error}`;
+          store.fail(id, message);
+          notifyFailure(file.name, message);
         },
       );
     }
