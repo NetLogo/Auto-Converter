@@ -4,3 +4,23 @@ dist
 .DS_Store
 
 service/releases
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Auto-generated type declarations
+auto-imports.d.ts
+components.d.ts
+tsconfig.app.tsbuildinfo
+tsconfig.node.tsbuildinfo
+
+# Environment variables
+.env
