@@ -232,6 +232,10 @@ const ctaTurtles = [
           Models saved in <span class="font-medium text-highlighted">NetLogo 4, 5, or 6</span> convert straight to
           NetLogo 7. Old syntax is rewritten where the language has moved on and the result also runs in
           <span class="font-medium text-highlighted">NetLogo Web</span>.
+
+          <br/> <br/>
+
+          <span class="italic"><span class="text-red-500">*</span>Some features and primitives in NetLogo 7 are not supported in NetLogo Web.</span>
         </p>
       </div>
     </section>
