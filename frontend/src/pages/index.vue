@@ -8,12 +8,12 @@ const { inProgress } = useConversions();
 </script>
 
 <template>
-  <div class="flex flex-col items-center gap-6">
-    <Headline class="home-headline rise" />
+  <div class="flex flex-col items-center gap-6 w-full px-10">
+    <Headline class="home-headline rise -mt-20" />
 
     <Transition name="home" mode="out-in" appear>
       <ConversionPanel v-if="inProgress" />
-      <div v-else class="flex flex-col items-center gap-6">
+      <div v-else class="flex flex-col items-center gap-6 w-full">
         <FileUploader />
         <p class="-mt-6 flex items-center gap-1.5 text-xs md:text-sm text-center text-muted">
           <UIcon name="mdi:information-outline" class="size-4 shrink-0" />
