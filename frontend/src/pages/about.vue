@@ -96,6 +96,8 @@ const steps = [
         <UButton
           as="a"
           to="https://github.com/NetLogo/Auto-Converter/issues"
+          target="_blank"
+          rel="noopener noreferrer"
           icon="simple-icons:github"
           color="neutral"
           variant="subtle"
@@ -104,6 +106,8 @@ const steps = [
         <UButton
           as="a"
           to="https://docs.netlogo.org/"
+          target="_blank"
+          rel="noopener noreferrer"
           icon="mdi:file-document-outline"
           color="neutral"
           variant="ghost"

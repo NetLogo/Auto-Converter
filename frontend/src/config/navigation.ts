@@ -8,8 +8,19 @@ const brand = (file: string, alt: string): NavigationMenuItem['avatar'] => ({
   loading: 'lazy',
 });
 
+/** Recursively flags external (`http`) links to open in a new tab. */
+function withExternalTargets(items: NavigationMenuItem[]): NavigationMenuItem[] {
+  return items.map((item) => ({
+    ...item,
+    ...(typeof item.to === 'string' && item.to.startsWith('http')
+      ? { target: '_blank', rel: 'noopener noreferrer' }
+      : {}),
+    ...(item.children ? { children: withExternalTargets(item.children) } : {}),
+  }));
+}
+
 /** Items rendered in the application header's navigation menu. */
-export const headerNavItems: NavigationMenuItem[] = [
+const navItems: NavigationMenuItem[] = [
   { type: 'link', label: 'Converter', to: '/' },
   { type: 'link', label: 'About', to: '/about' },
   {
@@ -104,3 +115,5 @@ export const headerNavItems: NavigationMenuItem[] = [
     to: 'https://www.netlogo.org/donate',
   },
 ];
+
+export const headerNavItems: NavigationMenuItem[] = withExternalTargets(navItems);

@@ -61,6 +61,8 @@ import { headerNavItems } from '@/config/navigation.js';
         square
         as="a"
         to="https://github.com/NetLogo/Auto-Converter"
+        target="_blank"
+        rel="noopener noreferrer"
         icon="simple-icons:github"
         title="GitHub"
         aria-label="GitHub"
