@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { KeepAlive } from 'vue';
-
 import AppHeader from '@/components/layout/AppHeader.vue';
 import Headline from '@/components/layout/Headline.vue';
 import FileUploader from '@/components/conversion/FileUploader.vue';
@@ -17,10 +15,8 @@ const { inProgress } = useConversions();
     <UMain id="container" class="flex flex-col items-center justify-center gap-6">
       <Headline />
 
-      <KeepAlive>
         <ConversionPanel v-if="inProgress" />
         <FileUploader v-else />
-      </KeepAlive>
     </UMain>
   </UApp>
 </template>
