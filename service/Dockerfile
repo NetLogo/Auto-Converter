@@ -1,9 +1,5 @@
 FROM ubuntu:latest
 
-COPY package.json tsconfig.json /service/
-COPY scripts /service/scripts
-COPY src /service/src
-
 RUN apt update && apt install -y curl zip unzip
 
 SHELL [ "/bin/bash", "-c" ]
@@ -34,6 +30,10 @@ RUN curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh" |
     npm -g install serve
 
 ENV PATH="$PATH:$NVM_DIR/versions/node/v$NODE_VERSION/bin"
+
+COPY package.json tsconfig.json /service/
+COPY scripts /service/scripts
+COPY src /service/src
 
 RUN cd service && \
     npm install && \
