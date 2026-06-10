@@ -1,6 +1,6 @@
-import { reactive } from "vue";
+import { reactive } from 'vue';
 
-import { type ConversionStatus } from "./status.js";
+import { type ConversionStatus } from './status.js';
 
 class Store {
   private displayProgress = false;
@@ -30,13 +30,14 @@ class Store {
     return this.conversions;
   }
 
-  addConversion(name: string): number {
+  addConversion(name: string, file: File): number {
     const id: number = this.conversions.length;
 
     this.conversions.push({
-      status: "converting",
+      status: 'converting',
       id: id,
-      name: name
+      name: name,
+      originalFile: file,
     });
 
     return id;
@@ -45,10 +46,11 @@ class Store {
   succeed(id: number, file: string, data: Blob): void {
     if (this.conversions[id]) {
       this.conversions[id] = {
-        status: "succeeded",
+        status: 'succeeded',
         id: id,
         name: this.conversions[id].name,
         file: file,
+        originalFile: this.conversions[id].originalFile,
         data: data,
       };
     }
@@ -57,10 +59,11 @@ class Store {
   fail(id: number, error: string): void {
     if (this.conversions[id]) {
       this.conversions[id] = {
-        status: "failed",
+        status: 'failed',
         id: id,
         name: this.conversions[id].name,
-        error: error
+        originalFile: this.conversions[id].originalFile,
+        error: error,
       };
     }
   }
