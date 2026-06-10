@@ -13,7 +13,7 @@ const { convert } = useConversions();
     label="Drop your models here or click to select"
     description=".nlogo, .nlogo3d, .nlogox, and .nlogox3d"
     :accept="ACCEPTED_EXTENSIONS"
-    class="w-full max-w-lg mb-10"
+    class="w-full max-w-lg mb-10 px-5"
     :ui="{ base: 'min-h-48 border-primary/50' }"
   >
     <template #file-leading="{ file }">
