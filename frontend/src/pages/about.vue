@@ -18,7 +18,7 @@ const steps = [
   {
     icon: 'mdi:cog-sync-outline',
     title: 'Convert',
-    body: 'Each model is upgraded one major version at a time via the NetLogo Auto Converter service.',
+    body: 'Each model is upgraded one major version at a time via the NetLogo Auto-Converter service.',
   },
   {
     icon: 'mdi:download-outline',
@@ -31,7 +31,7 @@ const steps = [
 <template>
   <div class="mx-auto w-full max-w-2xl px-6 py-12 flex flex-col gap-10">
     <header class="flex flex-col gap-3">
-      <h1 class="text-2xl font-bold text-highlighted">About the Auto Converter</h1>
+      <h1 class="text-2xl font-bold text-highlighted">About the Auto-Converter</h1>
       <p class="text-muted leading-relaxed">
         The NetLogo Auto-Converter upgrades legacy models to the modern XML-based format used by
         <a class="text-primary hover:underline" href="https://www.netlogo.org/download" target="_blank" rel="noopener"
@@ -40,7 +40,7 @@ const steps = [
         and
         <a class="text-primary hover:underline" href="https://www.netlogoweb.org" target="_blank" rel="noopener">
           NetLogo Web</a
-        >. The Auto Converter will also upgrade models authored in older versions of NetLogo to be compatible with the
+        >. The Auto-Converter will also upgrade models authored in older versions of NetLogo to be compatible with the
         latest NetLogo release.
       </p>
       <p class="text-muted leading-relaxed">Everything runs from your browser. Just upload, convert, and download.</p>
