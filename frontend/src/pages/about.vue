@@ -87,9 +87,6 @@ const steps = [
         <UIcon name="mdi:pencil-outline" class="size-6 text-warning shrink-0 mt-0.5" />
         <p class="text-sm text-muted leading-relaxed">
           Some of your model's code may be rewritten where necessary to keep it working in the new version of NetLogo.
-          Any lines the converter changes are
-          <span class="font-medium text-highlighted">highlighted in the downloaded model</span> so you can review
-          exactly what was modified.
         </p>
       </div>
     </section>
@@ -100,8 +97,7 @@ const steps = [
         <UIcon name="mdi:alert-outline" class="size-6 text-muted shrink-0 mt-0.5" />
         <p class="text-sm text-muted leading-relaxed">
           The converter cannot upgrade models older than
-          <span class="font-medium text-highlighted">NetLogo 4</span>: these need to be opened and re-saved in a newer
-          version of NetLogo before they can be converted here. Models from NetLogo 4 can be upgraded, but the process
+          <span class="font-medium text-highlighted">NetLogo 4</span>: these need to be opened and re-saved in NetLogo 4 before they can be converted here. Models from NetLogo 4 can be upgraded, but the process
           is <span class="font-medium text-highlighted">more error-prone</span>, so review the converted output
           carefully.
         </p>
@@ -149,10 +145,13 @@ const steps = [
     <div class="flex flex-wrap items-center justify-between gap-2 border-t border-muted pt-6">
       <UButton to="/" icon="mdi:arrow-left" color="neutral" variant="link" label="Back to the converter" />
       <UButton
-        to="/news/announcing-netlogo-auto-converter"
+        to="https://docs.netlogo.org/netlogo7intro"
         trailing-icon="mdi:arrow-right"
         color="primary"
         variant="link"
+        external
+        rel="noopener noreferrer"
+        target="_blank"
         label="What's new in NetLogo 7"
       />
     </div>
