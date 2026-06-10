@@ -2,7 +2,8 @@ import type { NavigationMenuItem } from '@nuxt/ui';
 
 /** Items rendered in the application header's navigation menu. */
 export const headerNavItems: NavigationMenuItem[] = [
-  { type: 'link', label: 'Converter', to: '/', active: true },
+  { type: 'link', label: 'Converter', to: '/' },
+  { type: 'link', label: 'About', to: '/about' },
   {
     type: 'link',
     label: 'NetLogo Products',
