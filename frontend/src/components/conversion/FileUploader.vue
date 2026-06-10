@@ -14,7 +14,7 @@ const { convert } = useConversions();
     description=".nlogo, .nlogo3d, .nlogox, and .nlogox3d"
     :accept="ACCEPTED_EXTENSIONS"
     class="w-full max-w-lg mb-10 px-5"
-    :ui="{ base: 'min-h-48 border-primary/50' }"
+    :ui="{ base: 'min-h-48 border-primary/50', files: 'rise' }"
   >
     <template #file-leading="{ file }">
       <NetLogoFileIcon :variant="fileVariant(file)" />
