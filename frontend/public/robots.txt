@@ -48,3 +48,5 @@ Allow: /
 # Block everything else
 User-agent: *
 Disallow: /
+
+Sitemap: https://convert.netlogo.com/sitemap.xml
