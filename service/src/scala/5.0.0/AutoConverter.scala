@@ -4,21 +4,19 @@ import java.awt.EventQueue
 import java.util.{ List => JList, Map => JMap }
 
 import org.nlogo.agent.World
-import org.nlogo.api.{ Approximate, DummyLogoThunkFactory, FileIO, ModelReader, ModelSection, Shape, ShapeList,
-                       Version, VersionHistory, WorldDimensions, WorldDimensions3D }
+import org.nlogo.api.{ DummyLogoThunkFactory, FileIO, ModelReader, ModelSection, Shape, ShapeList, Version,
+                       VersionHistory }
 import org.nlogo.app.InfoConverter
 import org.nlogo.compiler.Compiler
 import org.nlogo.editor.AbstractEditorArea
 import org.nlogo.lab.{ Protocol, ProtocolLoader, ProtocolSaver }
-import org.nlogo.nvm.{ DefaultCompilerServices, Workspace }
+import org.nlogo.nvm.DefaultCompilerServices
 import org.nlogo.plot.PlotManager
 import org.nlogo.shape.{ LinkShape, VectorShape }
 import org.nlogo.swing.Implicits.thunk2runnable
-import org.nlogo.util.MersenneTwisterFast
 import org.nlogo.window.{ ButtonWidget, ChooserWidget, DummyButtonWidget, DummyChooserWidget, DummyInputBoxWidget,
                           DummyMonitorWidget, DummyPlotWidget, DummySliderWidget, DummyViewWidget, InputBoxWidget,
                           MonitorWidget, OutputWidget, PlotWidget, SliderWidget, Widget, WidgetRegistry }
-import org.nlogo.workspace.{ WorldLoader, WorldLoader3D, WorldLoaderInterface }
 
 object AutoConverter {
   def main(args: Array[String]): Unit = {
@@ -54,8 +52,10 @@ object AutoConverter {
 
     val modelVersion: String = getSectionText(ModelSection.Version, "5.0.0")
 
+    val workspace = new DummyWorkspace
+
     def autoConvert(text: String, subprogram: Boolean, reporter: Boolean): String =
-      Compiler.autoConvert(text, subprogram, reporter, modelVersion, null, false, false)
+      Compiler.autoConvert(text, subprogram, reporter, modelVersion, workspace, false, false)
 
     val compilerServices = new DefaultCompilerServices(Compiler)
 
@@ -267,146 +267,5 @@ object AutoConverter {
     FileIO.writeFile(modelPath, buffer.toString)
 
     println(modelPath)
-  }
-
-  private class HeadlessViewWidget extends Widget with WorldLoaderInterface {
-    private var threed = false
-    private var patchSize = 0.0
-    private var fontSize = 0
-    private var wrapX = true
-    private var wrapY = true
-    private var minPxcor = 0
-    private var maxPxcor = 0
-    private var minPycor = 0
-    private var maxPycor = 0
-    private var minPzcor = 0
-    private var maxPzcor = 0
-    private var updateMode: Workspace.UpdateMode = Workspace.UpdateMode.CONTINUOUS
-    private var showTick = true
-    private var tickLabel = ""
-    private var frames = 0.0
-
-    override def load(lines: Array[String], helper: Widget.LoadHelper): AnyRef = {
-      threed = Version.is3D(helper.version)
-
-      val loader: WorldLoader = {
-        if (threed) {
-          new WorldLoader3D
-        } else {
-          new WorldLoader
-        }
-      }
-
-      loader.load(lines, helper.version, this)
-
-      this
-    }
-
-    override def save: String = {
-      "GRAPHICS-WINDOW\n" +
-      getX + '\n' +
-      getY + '\n' +
-      (getX + getWidth).toString + '\n' +
-      (getY + getHeight).toString + '\n' +
-      (if (-minPxcor == maxPxcor) maxPxcor else -1) + '\n' +
-      (if (-minPycor == maxPycor) maxPycor else -1) + '\n' +
-      patchSize + '\n' +
-      "1\n" +
-      fontSize + '\n' +
-      "1\n" +
-      "1\n" +
-      "1\n" +
-      "0\n" +
-      (if (wrapX) "1" else "0") + '\n' +
-      (if (wrapY) "1" else "0") + '\n' +
-      "1\n" +
-      minPxcor + '\n' +
-      maxPxcor + '\n' +
-      minPycor + '\n' +
-      maxPycor + '\n' +
-      (if (threed) (minPzcor + "\n" + maxPzcor + '\n') else "") +
-      (if (threed) "1\n" else "") +
-      updateMode.save + "\n" +
-      (if (threed) "" else (updateMode.save + "\n")) +
-      (if (showTick) "1" else "0") + '\n' +
-      tickLabel + '\n' +
-      frames + '\n'
-    }
-
-    override def patchSize(size: Double): Unit = {
-      patchSize = size
-    }
-
-    override def setDimensions(dims: WorldDimensions, size: Double): Unit = {
-      minPxcor = dims.minPxcor
-      maxPxcor = dims.maxPxcor
-      minPycor = dims.minPycor
-      maxPycor = dims.maxPycor
-
-      dims match {
-        case threed: WorldDimensions3D =>
-          minPzcor = threed.minPzcor
-          maxPzcor = threed.maxPzcor
-
-        case _ =>
-      }
-
-      patchSize(size)
-    }
-
-    override def fontSize(size: Int): Unit = {
-      fontSize = size
-    }
-
-    override def changeTopology(x: Boolean, y: Boolean): Unit = {
-      wrapX = x
-      wrapY = y
-    }
-
-    override def clearTurtles(): Unit = {}
-
-    override def updateMode(mode: Workspace.UpdateMode): Unit = {
-      updateMode = mode
-    }
-
-    override def getMinimumWidth: Int =
-      0
-
-    override def computePatchSize(width: Int, patches: Int): Double = {
-      var exactPatchSize = width.toDouble / patches
-
-      (0 until 15).map(precision => patches * Approximate.approximate(exactPatchSize, precision))
-        .find(_.toInt == width).getOrElse(exactPatchSize)
-    }
-
-    override def calculateHeight(worldHeight: Int, patchSize: Double): Int =
-      (patchSize * worldHeight).toInt + 21
-
-    override def calculateWidth(worldWidth: Int, patchSize: Double): Int =
-      (patchSize * worldWidth).toInt
-
-    override def insetWidth(): Int =
-      0
-
-    override def tickCounterLabel(label: String): Unit = {
-      tickLabel = label
-    }
-
-    override def tickCounterLabel: String =
-      tickLabel
-
-    override def showTickCounter(visible: Boolean): Unit = {
-      showTick = visible
-    }
-
-    override def showTickCounter: Boolean =
-      showTick
-
-    override def frameRate: Double =
-      frames
-
-    override def frameRate(rate: Double): Unit = {
-      frames = rate
-    }
   }
 }
