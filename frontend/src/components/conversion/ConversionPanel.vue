@@ -6,7 +6,7 @@ const { conversions, succeeded, downloadAll, reset } = useConversions();
 </script>
 
 <template>
-  <div class="flex flex-col gap-6 justify-end">
+  <div class="flex flex-col gap-2 justify-end max-w-full">
     <ConversionItem v-for="item of conversions" :key="item.id" :item="item" />
 
     <div class="flex w-full gap-2 justify-end">
