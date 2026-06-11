@@ -2,13 +2,21 @@
  * Helpers for reasoning about NetLogo model files.
  */
 
+/** Extensions accepted by the converter. */
+const ACCEPTED_EXTENSIONS = ['.nlogo', '.nlogo3d', '.nlogox', '.nlogox3d'] as const;
+
 /** Extensions accepted by the converter, as a value for `<input accept>`. */
-export const ACCEPTED_EXTENSIONS = '.nlogo,.nlogo3d,.nlogox,.nlogox3d';
+export const ACCEPTED_EXTENSIONS_STR = ACCEPTED_EXTENSIONS.join(',');
 
 /** Extensions that are already in the modern XML-based format. */
 const MODERN_EXTENSIONS = ['.nlogox', '.nlogox3d'] as const;
 
-export type NetLogoFileVariant = 'old' | 'new';
+export type NetLogoFileVariant = 'old' | 'new' | 'invalid';
+
+/** True when the file matches one of the accepted formats. */
+export function isValidFormat(file: File): boolean {
+  return ACCEPTED_EXTENSIONS.some((ext) => file.name.endsWith(ext));
+}
 
 /** True when the file is already in the modern `.nlogox`/`.nlogox3d` format. */
 export function isModernFormat(file: File): boolean {
@@ -17,7 +25,11 @@ export function isModernFormat(file: File): boolean {
 
 /** The icon variant to display for a given model file. */
 export function fileVariant(file: File): NetLogoFileVariant {
-  return isModernFormat(file) ? 'new' : 'old';
+  if (isValidFormat(file)) {
+    return isModernFormat(file) ? 'new' : 'old';
+  }
+
+  return 'invalid';
 }
 
 /** The model name with its NetLogo extension stripped. */
@@ -37,7 +49,8 @@ export function formatFileSize(bytes: number): string {
 
 export function useNetLogoFile() {
   return {
-    ACCEPTED_EXTENSIONS,
+    ACCEPTED_EXTENSIONS_STR,
+    isValidFormat,
     isModernFormat,
     fileVariant,
     modelName,

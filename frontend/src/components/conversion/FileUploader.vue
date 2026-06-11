@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import NetLogoFileIcon from '@/components/ui/NetLogoFileIcon.vue';
 import { useConversions } from '@/composables/useConversions.js';
-import { ACCEPTED_EXTENSIONS, fileVariant } from '@/composables/useNetLogoFile.js';
+import { ACCEPTED_EXTENSIONS_STR, fileVariant, isValidFormat } from '@/composables/useNetLogoFile.js';
 
 const { convert } = useConversions();
+
+function anyInvalid(files: File[]): boolean {
+  return files.some((file) => !isValidFormat(file));
+}
 </script>
 
 <template>
@@ -12,7 +16,7 @@ const { convert } = useConversions();
     multiple
     label="Drop your models here or click to select"
     description=".nlogo, .nlogo3d, .nlogox, and .nlogox3d"
-    :accept="ACCEPTED_EXTENSIONS"
+    :accept="ACCEPTED_EXTENSIONS_STR"
     class="w-full max-w-xl mb-10"
     :ui="{ base: 'min-h-48 border-primary/50', 'file': 'rise' }"
   >
@@ -31,7 +35,7 @@ const { convert } = useConversions();
           @click="removeFile()"
         />
         <UButton
-          :disabled="!files?.length"
+          :disabled="!files?.length || anyInvalid(files)"
           label="Convert"
           icon="mdi:update"
           color="primary"
