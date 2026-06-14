@@ -11,7 +11,7 @@ export const ACCEPTED_EXTENSIONS_STR = ACCEPTED_EXTENSIONS.join(',');
 /** Extensions that are already in the modern XML-based format. */
 const MODERN_EXTENSIONS = ['.nlogox', '.nlogox3d'] as const;
 
-export type NetLogoFileVariant = 'old' | 'new' | 'invalid';
+export type NetLogoFileVariant = 'old' | 'new';
 
 /** True when the file matches one of the accepted formats. */
 export function isValidFormat(file: File): boolean {
@@ -25,11 +25,7 @@ export function isModernFormat(file: File): boolean {
 
 /** The icon variant to display for a given model file. */
 export function fileVariant(file: File): NetLogoFileVariant {
-  if (isValidFormat(file)) {
-    return isModernFormat(file) ? 'new' : 'old';
-  }
-
-  return 'invalid';
+  return isModernFormat(file) ? 'new' : 'old';
 }
 
 /** The model name with its NetLogo extension stripped. */

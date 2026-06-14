@@ -1,12 +1,16 @@
 <script setup lang="ts">
+import { type Ref, ref } from 'vue';
+
 import NetLogoFileIcon from '@/components/ui/NetLogoFileIcon.vue';
 import { useConversions } from '@/composables/useConversions.js';
 import { ACCEPTED_EXTENSIONS_STR, fileVariant, isValidFormat } from '@/composables/useNetLogoFile.js';
 
 const { convert } = useConversions();
 
-function anyInvalid(files: File[]): boolean {
-  return files.some((file) => !isValidFormat(file));
+const fileUpload: Ref<File[]> = ref([]);
+
+function filterSelected(_: Event): void {
+  fileUpload.value = fileUpload.value.filter((file) => isValidFormat(file));
 }
 </script>
 
@@ -19,6 +23,8 @@ function anyInvalid(files: File[]): boolean {
     :accept="ACCEPTED_EXTENSIONS_STR"
     class="w-full max-w-xl mb-10"
     :ui="{ base: 'min-h-48 border-primary/50', 'file': 'rise' }"
+    v-model="fileUpload"
+    @change="filterSelected"
   >
     <template #file-leading="{ file }">
       <NetLogoFileIcon :variant="fileVariant(file)" />
@@ -35,7 +41,7 @@ function anyInvalid(files: File[]): boolean {
           @click="removeFile()"
         />
         <UButton
-          :disabled="!files?.length || anyInvalid(files)"
+          :disabled="!files?.length"
           label="Convert"
           icon="mdi:update"
           color="primary"

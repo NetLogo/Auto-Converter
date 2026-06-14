@@ -16,19 +16,11 @@ const icon = computed(() => {
     };
   }
 
-  if (props.variant === 'old') {
-    return {
-      src: '/assets/file-icons/old-icon.webp',
-      srcset:
-        '/assets/file-icons/old-icon.webp 1x, /assets/file-icons/old-icon-2x.webp 2x, /assets/file-icons/old-icon-3x.webp 3x',
-      label: 'Legacy NetLogo model file',
-    };
-  }
-
   return {
-    src: '/assets/file-icons/invalid-icon.webp',
-    srcset: '/assets/file-icons/invalid-icon.webp',
-    label: 'Invalid file type'
+    src: '/assets/file-icons/old-icon.webp',
+    srcset:
+      '/assets/file-icons/old-icon.webp 1x, /assets/file-icons/old-icon-2x.webp 2x, /assets/file-icons/old-icon-3x.webp 3x',
+    label: 'Legacy NetLogo model file',
   };
 });
 </script>
