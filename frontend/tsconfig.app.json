@@ -99,6 +99,6 @@
     "noErrorTruncation": false,
     "preserveWatchOutput": true,
     "pretty": true,
-    "skipLibCheck": false
+    "skipLibCheck": true
   }
 }
