@@ -4,7 +4,7 @@ import { realpathSync } from "fs";
 import multer, { diskStorage } from "multer";
 import { env } from "process";
 
-import { execConversions } from "./convert.js";
+import { enqueueConversion } from "./convert.js";
 
 const port: number = parseInt(`${env["AC_SERVICE_PORT"]}`);
 
@@ -27,7 +27,7 @@ app.get("/health", (_: Request, response: Response) => {
 
 app.post("/convert", mult.single("model"), (request: Request, response: Response) => {
   if (request.file) {
-    execConversions(response, realpathSync(request.file.path));
+    enqueueConversion(response, realpathSync(request.file.path));
   } else {
     response.status(400).send();
   }

@@ -10,10 +10,19 @@ interface Converter {
   java: string;
 };
 
+interface Conversion {
+  response: Response;
+  path: string;
+};
+
 const converters: Converter[] = [
   { version: "5.0.0", java: locateJava("JAVA6") },
   { version: "7.0.4", java: locateJava("JAVA17") }
 ];
+
+let conversionQueue: Conversion[] = [];
+
+let activeConversions: number = 0;
 
 function locateJava(name: string): string {
   const java: string | undefined = env[name];
@@ -41,6 +50,8 @@ function execConversionsInternal(response: Response, path: string, index: number
   if (!converter) {
     response.status(200).sendFile(path);
 
+    finalizeConversion();
+
     return;
   }
 
@@ -56,6 +67,8 @@ function execConversionsInternal(response: Response, path: string, index: number
       console.error(stderr);
 
       response.status(500).send();
+
+      finalizeConversion();
     } else {
       execConversionsInternal(response, realpathSync(stdout.trim()), index + 1, threed);
     }
@@ -69,7 +82,36 @@ function execConversions(response: Response, path: string): void {
     execConversionsInternal(response, path, nextConverter(version.number), version.threed);
   } else {
     response.status(400).send();
+
+    finalizeConversion();
   }
 }
 
-export { execConversions };
+function enqueueConversion(response: Response, path: string): void {
+  conversionQueue.push({
+    response: response,
+    path: path
+  });
+
+  nextConversion();
+}
+
+function nextConversion(): void {
+  if (activeConversions < 3) {
+    const conversion: Conversion | undefined = conversionQueue.shift();
+
+    if (conversion) {
+      activeConversions += 1;
+
+      execConversions(conversion.response, conversion.path);
+    }
+  }
+}
+
+function finalizeConversion(): void {
+  activeConversions -= 1;
+
+  nextConversion();
+}
+
+export { enqueueConversion };
